@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <title>Unable to proceed</title>
+    <style>
+      body { background-color: lightgrey; }
+      #txt { 
+        opacity: 0.8; 
+        margin-top: 25px;
+        margin-left: 20px;
+        margin-bottom: 20px;
+      }
+      #btn {
+        width: 100px;
+        margin-left: 20px;
+        border-radius: 6px;
+      }
+    </style>
+  </head>
+
+  <body>
+    <p id="txt">Unable to proceed your request !</p>
+    <button id = "btn" type="submit" class="btn btn-primary">Return</button>
+  </body>
+  <script>
+    const btn = document.getElementById("btn");
+    btn.addEventListener('click', () => window.history.go(-1));
+    btn.addEventListener('mouseover', () => btn.style.background='#338acc');
+    btn.addEventListener('mouseout', () => btn.style.background='#337ab7');
+    document.addEventListener('keydown', () => window.history.go(-1));
+  </script>
+</html>
