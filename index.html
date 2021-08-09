@@ -25,16 +25,10 @@
         margin-bottom: 16px;
       }
       .ld {
-          position: absolute;
-          visibility: hidden;
-          left: 265px;
-          top: 66px;
-          align-items: center;
-          justify-content: center;
-          z-index: 999;
-          opacity: 0.7;
+        visibility: hidden;
+        z-index: 999;
+        opacity: 0.8;
       }
-
       .ld:after {
         content: " ";
         display: block;
@@ -51,6 +45,24 @@
         0% { transform: rotate(0deg); }
         100% { transform: rotate(360deg); }
       }
+
+      .center {
+        display: flex;
+        justify-content: center;
+        flex-direction: row; 
+        align-items: center;
+      }
+
+      #txt {
+        animation:blink 2.4s infinite;
+        font-size: 20px;
+        visibility: hidden;
+      }
+      @keyframes blink {
+        0%  {   opacity: 0.0;   }
+        50% {   opacity: 0.9;   }
+        100%{   opacity: 0.0;   }
+      }
     </style>
   </head>
 
@@ -63,7 +75,13 @@
       <div class="g-recaptcha" data-sitekey="6LctKq8aAAAAAFiq9Z14Tz7ZxrKY5pYN9riq0NTp"></div>
     </form>
     <br>
-    <div id="ld" class="ld"></div>
+    
+    <div class="center">
+      <p id="txt" style="visibility: hidden;">Proceeding your file...</p>
+    </div>
+    <div class="center">
+      <div id="ld" class="ld"></div>
+    </div>
   </body>
     
   <script src="https://www.google.com/recaptcha/api.js" async defer></script>
@@ -71,9 +89,15 @@
     const btn = document.getElementById('btn');
     const link = document.getElementById('link');
     const loader = document.getElementById('ld');
+    const txt = document.getElementById('txt');
     
     link.focus();
-    btn.addEventListener('click', () => { if (link.value) loader.style.visibility = "visible"; });
+    btn.addEventListener('click', () => { if (link.value) { 
+
+        txt.style.visibility = "visible";
+        loader.style.visibility = "visible"; 
+      }
+    });
     btn.addEventListener('mouseover', () => btn.style.background='#338acc');
     btn.addEventListener('mouseout', () => btn.style.background='#337ab7');
   </script>

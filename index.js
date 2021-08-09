@@ -1,12 +1,16 @@
 const fs = require("fs");
 const fetch = require('node-fetch');
 const childProcess = require("child_process");
+const keys = require("./keys.json")
 const express = require("express");
 const app = express();
 
 app.use(express.json());  // needed for parsing json objects from client
 app.use(express.urlencoded({ extended: true }));
-app.listen(8000, () => console.log("Listening on port 8000!"));
+app.listen(80, () => { 
+    console.clear();
+    console.log("Listening on port 80");
+});
 
 app.get("/", (req, res) => { 
     res.sendFile(__dirname + "/index.html");
@@ -24,7 +28,7 @@ app.post("/", async (req, res) => {
         if(success) {
             const videoFileName = await getVideoFileName(req); // newly created file could be mp4 or mkv
             if (videoFileName) {
-                await ClearUserInputForm();
+                //await clearUserInputForm();
                 renderVideoPage(res, videoFileName);        // render video page with the name of the video file
             }
             else 
@@ -58,7 +62,7 @@ async function validateCaptcha(req) {
     if (captchaKey === undefined || captchaKey === null || captchaKey === "") 
         return false;
     else {
-        const secretKey = "6LctKq8aAAAAADQ_om2Qt_aFlzBUMysGkRPl69oR";
+        const secretKey = keys.captcha;
         const verifyUrl = "https://www.google.com/recaptcha/api/siteverify"
         const response = await fetch(verifyUrl, {
             method: "POST",
@@ -76,8 +80,8 @@ async function validateUrl(req) {
     return false;
 }
 
-function renderVideoPage(res, videoFileName) {
-    const original = fs.readFileSync("video.html", "utf8");
+async function renderVideoPage(res, videoFileName) {
+    const original = await fs.readFileSync("video.html", "utf8");
     // dynamicaly inserts requested file as query parameter to video source 
     const rendered = original.replace(/src="(.*)"/, `src="/video?filename=${videoFileName}"`); 
     res.writeHead(200, {'Content-type' : 'text/html'});
