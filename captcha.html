@@ -7,24 +7,33 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
     <title>Select captcha page</title>
     <style>
-      body { background-color: lightgrey; }
+      body { background-color: black; }
       #txt { 
+        color: white;
         opacity: 0.8; 
-        margin-top: 25px;
-        margin-left: 20px;
-        margin-bottom: 20px;
+      }
+      .center {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: row; 
       }
       #btn {
+        margin-top: 5px;
         width: 100px;
-        margin-left: 20px;
         border-radius: 6px;
       }
     </style>
   </head>
 
   <body>
-    <p id="txt">&nbsp;Please check captcha box!</p>
-    <button id = "btn" type="submit" class="btn btn-primary">Return</button>
+    <br><br>
+    <div class="center">
+      <p id="txt">&nbsp;Please check captcha box!</p>
+    </div>
+    <div class="center">
+      <button id = "btn" type="submit" class="btn btn-primary">Return</button>
+    </div>
   </body>
   <script>
     const btn = document.getElementById("btn");

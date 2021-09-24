@@ -7,24 +7,35 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
     <title>Unable to proceed</title>
     <style>
-      body { background-color: lightgrey; }
+      body { background-color: black; }
       #txt { 
-        opacity: 0.8; 
-        margin-top: 25px;
-        margin-left: 20px;
-        margin-bottom: 20px;
+        opacity: 0.8;
+        color: white;
       }
       #btn {
         width: 100px;
-        margin-left: 20px;
         border-radius: 6px;
+        margin-top: 10px;
+      }
+      .center {
+       display: flex;
+       justify-content: center;
+       align-items: center;
+        flex-direction: row; 
       }
     </style>
   </head>
 
   <body>
-    <p id="txt">Unable to proceed your request !</p>
-    <button id = "btn" type="submit" class="btn btn-primary">Return</button>
+    <div class="center" style="margin-top: 5px;">
+      <p id="txt">Unable to proceed your request</p>
+    </div>
+    <div class="center">
+      <p id="txt">Make shure you've pasted a valid youtube link</p>
+    </div>
+    <div class="center">
+      <button id = "btn" type="submit" class="btn btn-primary">Return</button>
+    </div>
   </body>
   <script>
     const btn = document.getElementById("btn");

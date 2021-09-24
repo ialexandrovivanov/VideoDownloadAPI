@@ -7,15 +7,26 @@
     <link rel="icon" href="/icon">
     <title>Video page</title>
     <style>
-      body { background-color: lightgrey; }
-      #video { width: 680px; }
+      body { background-color: black; }
+      #video { 
+        width: 60rem; 
+        margin: 0px;
+      }
+      .center {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: row; 
+    }
     </style>
   </head>
 
   <body>
-    <video autoplay controls id="video">
+    <div class="center">
+      <video autoplay controls id="video">
         <source src=""/>
-    </video>
+      </video>
+    </div>
   </body>
 
   <script>

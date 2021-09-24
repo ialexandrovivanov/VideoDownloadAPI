@@ -9,21 +9,17 @@
     <script src="https://www.google.com/recaptcha/api.js" async defer></script>
     <title>Index page</title>
     <style>
-      body { background-color: lightgrey; }
+      body { background: black; }
       #link { 
+        background: rgb(255, 255, 252);
         width: 305px; 
         border-radius: 6px;
-        height: 30px;
-        opacity: 0.8;
-      }
-      #form {
-        margin-top: 20px;
-        margin-left: 20px;
+        height: 40px;
       }
       #btn {
         width: 100px;
         border-radius: 6px;
-        margin-bottom: 16px;
+        margin-bottom: 20px;
       }
       .ld {
         visibility: hidden;
@@ -41,23 +37,21 @@
         border-color: rgb(159, 162, 163) transparent rgb(159, 162, 163) transparent;
         animation: ld 1.14s linear infinite;
       }
-
-      @keyframes ld {
-        0% { transform: rotate(0deg); }
-        100% { transform: rotate(360deg); }
-      }
-
       .center {
         display: flex;
         justify-content: center;
         flex-direction: row; 
         align-items: center;
       }
-
       #txt {
+        color: white;
         animation:blink 2.4s infinite;
         font-size: 20px;
         visibility: hidden;
+      }
+      @keyframes ld {
+        0% { transform: rotate(0deg); }
+        100% { transform: rotate(360deg); }
       }
       @keyframes blink {
         0%  {   opacity: 0.0;   }
@@ -68,15 +62,21 @@
   </head>
 
   <body>
+    <br>
     <form id="form" action="/" method="POST" autocomplete="off">
-      <div class="form-group">
-        <input type="text" id="link" name="link" class="form-control" id="link" required placeholder="         Paste your link here">
+      <div class="center">
+        <div class="form-group">
+          <input type="text" id="link" name="link" class="form-control" id="link" required placeholder="         Paste your link here">
+        </div>
       </div>
-      <button id="btn" type="submit" class="btn btn-primary">Submit</button>
-      <div class="g-recaptcha" data-sitekey="6Lc20oocAAAAAEhRctX5xbLdF-7I5Hhjw1EEtPSu"></div>
+      <div class="center">
+        <button id="btn" type="submit" class="btn btn-primary">Submit</button>
+      </div>
+      <div class="center">
+        <div class="g-recaptcha" data-sitekey="6Lc20oocAAAAAEhRctX5xbLdF-7I5Hhjw1EEtPSu"></div>
+      </div>
     </form>
     <br>
-    
     <div class="center">
       <p id="txt" style="visibility: hidden;">Proccessing your file...</p>
     </div>
