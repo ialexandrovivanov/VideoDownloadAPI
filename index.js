@@ -1,7 +1,7 @@
 const fs = require("fs");
 const fetch = require('node-fetch');
 const childProcess = require("child_process");
-const keys = require("./keys.json")
+const keys = require(__dirname + "/keys.json");
 const express = require("express");
 const app = express();
 
@@ -62,7 +62,7 @@ async function validateCaptcha(req) {
     if (captchaKey === undefined || captchaKey === null || captchaKey === "") 
         return false;
     else {
-        const secretKey = keys.captcha;
+        const secretKey = keys.secret;
         const verifyUrl = "https://www.google.com/recaptcha/api/siteverify"
         const response = await fetch(verifyUrl, {
             method: "POST",
@@ -103,7 +103,7 @@ async function renderCaptchaPage(res) {
 
 async function downloadFile(req) {
     try {
-        await childProcess.execSync(`ytdl --id ${req.body.link}`, async (err, stdout, stderr) => 
+        childProcess.execSync(`ytdl --id ${req.body.link}`, async (err, stdout, stderr) => 
             { await logger(err, stdout, stderr); });
         return true;
     } catch (err) { 

@@ -1,12 +1,9 @@
 {
-  "name": "shellcommand",
+  "name": "video-download",
   "version": "1.0.0",
-  "description": "",
+  "description": "youtube downloader",
   "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "author": "iai",
+  "author": "ialexandrovivanov@gmail.com",
   "license": "ISC",
   "dependencies": {
     "body-parser": "^1.19.0",
@@ -15,5 +12,8 @@
     "fs": "0.0.1-security",
     "node-fetch": "^2.6.1",
     "save": "^2.4.0"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
   }
 }

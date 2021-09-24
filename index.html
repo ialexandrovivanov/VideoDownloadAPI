@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="icon" href="/icon">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
     <title>Index page</title>
     <style>
       body { background-color: lightgrey; }
@@ -72,19 +73,18 @@
         <input type="text" id="link" name="link" class="form-control" id="link" required placeholder="         Paste your link here">
       </div>
       <button id="btn" type="submit" class="btn btn-primary">Submit</button>
-      <div class="g-recaptcha" data-sitekey="6LctKq8aAAAAAFiq9Z14Tz7ZxrKY5pYN9riq0NTp"></div>
+      <div class="g-recaptcha" data-sitekey="6Lc20oocAAAAAEhRctX5xbLdF-7I5Hhjw1EEtPSu"></div>
     </form>
     <br>
     
     <div class="center">
-      <p id="txt" style="visibility: hidden;">Proceeding your file...</p>
+      <p id="txt" style="visibility: hidden;">Proccessing your file...</p>
     </div>
     <div class="center">
       <div id="ld" class="ld"></div>
     </div>
   </body>
     
-  <script src="https://www.google.com/recaptcha/api.js" async defer></script>
   <script>
     const btn = document.getElementById('btn');
     const link = document.getElementById('link');
