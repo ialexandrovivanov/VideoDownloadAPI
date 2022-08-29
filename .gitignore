@@ -4,3 +4,6 @@ npm-debug.log
 .env
 .DS_Store
 keys.json
+*.mp4
+*.mkv
+*.mpeg

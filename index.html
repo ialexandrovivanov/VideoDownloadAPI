@@ -80,6 +80,7 @@
     <div class="center">
       <p id="txt" style="visibility: hidden;">Proccessing your file...</p>
     </div>
+    <br>
     <div class="center">
       <div id="ld" class="ld"></div>
     </div>
@@ -90,11 +91,13 @@
     const link = document.getElementById('link');
     const loader = document.getElementById('ld');
     const txt = document.getElementById('txt');
+    const form = document.getElementById('form');
     
     link.focus();
     btn.addEventListener('click', () => { if (link.value) { 
 
         txt.style.visibility = "visible";
+        form.style.visibility = "hidden";
         loader.style.visibility = "visible"; 
       }
     });

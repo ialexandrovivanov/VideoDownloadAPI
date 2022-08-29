@@ -8,15 +8,18 @@ const app = express();
 app.use(express.json());  // needed for parsing json objects from client
 app.use(express.urlencoded({ extended: true }));
 app.listen(80, () => { 
+
     console.clear();
     console.log("Listening on port 80");
 });
 
 app.get("/", (req, res) => { 
+
     res.sendFile(__dirname + "/index.html");
 });
 
 app.post("/", async (req, res) => {
+
     const validCaptcha = await validateCaptcha(req);    
     if (!validCaptcha) { renderCaptchaPage(res); return; }  // validate google captcha
     const validUrl = await validateUrl(req);
@@ -39,28 +42,32 @@ app.post("/", async (req, res) => {
 });
 
 app.get("/video", (req, res) => {
+
     res.sendFile(__dirname + `/${req.query.filename}`);
 });
 
 app.get("/icon", (req, res) => {
+
     res.sendFile(__dirname + "/favicon.ico");
 });
 
 async function getVideoFileName(req, res) {
+
     try {
         const allFiles = await getFiles(); // array of files with extensions (full names)
         // returns full name of the first file which starts with requested id or undefined
         return allFiles.find(f => f.startsWith(/v=(.*)/.exec(req.body.link)[1])); // first wich starts with id
-    } catch (err) {
+    } 
+    catch (err) {
         logger(err);
         return undefined;
     }
 }
 
 async function validateCaptcha(req) {
+
     const captchaKey = req.body["g-recaptcha-response"];
-    if (captchaKey === undefined || captchaKey === null || captchaKey === "") 
-        return false;
+    if (captchaKey === undefined || captchaKey === null || captchaKey === "") return false;
     else {
         const secretKey = keys.secret;
         const verifyUrl = "https://www.google.com/recaptcha/api/siteverify"
@@ -76,11 +83,13 @@ async function validateCaptcha(req) {
 }
 
 async function validateUrl(req) {
+
     if (req.body.link.startsWith("https://www.youtube.com/watch?v=")) return true;
     return false;
 }
 
 async function renderVideoPage(res, videoFileName) {
+
     const original = await fs.readFileSync("video.html", "utf8");
     // dynamicaly inserts requested file as query parameter to video source 
     const rendered = original.replace(/src="(.*)"/, `src="/video?filename=${videoFileName}"`); 
@@ -90,18 +99,22 @@ async function renderVideoPage(res, videoFileName) {
 }
 
 function renderUnablePage(res) {
+
     res.sendFile(__dirname + "/unable.html");
 }
 
 async function getFiles() {
+
     return fs.readdirSync(__dirname);
 }
 
 async function renderCaptchaPage(res) {
+
     res.sendFile(__dirname + "/captcha.html");
 }
 
 async function downloadFile(req) {
+
     try {
         childProcess.execSync(`ytdl --id ${req.body.link}`, async (err, stdout, stderr) => 
             { await logger(err, stdout, stderr); });
@@ -113,5 +126,6 @@ async function downloadFile(req) {
 }
 
 async function logger(err, stdout, stderr) {
+    
     console.log(err, stdout, stderr);
 }
