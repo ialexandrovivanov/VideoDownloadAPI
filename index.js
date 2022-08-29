@@ -7,19 +7,14 @@ const app = express();
 
 app.use(express.json());  // needed for parsing json objects from client
 app.use(express.urlencoded({ extended: true }));
-app.listen(80, () => { 
-
-    console.clear();
-    console.log("Listening on port 80");
-});
 
 app.get("/", (req, res) => { 
-
+    
     res.sendFile(__dirname + "/index.html");
 });
 
 app.post("/", async (req, res) => {
-
+    
     const validCaptcha = await validateCaptcha(req);    
     if (!validCaptcha) { renderCaptchaPage(res); return; }  // validate google captcha
     const validUrl = await validateUrl(req);
@@ -35,7 +30,7 @@ app.post("/", async (req, res) => {
                 renderVideoPage(res, videoFileName);        // render video page with the name of the video file
             }
             else 
-                renderUnablePage(res);
+            renderUnablePage(res);
         } 
         else renderUnablePage(res);                         // if error when download render unable page
     }
@@ -51,14 +46,29 @@ app.get("/icon", (req, res) => {
     res.sendFile(__dirname + "/favicon.ico");
 });
 
+app.get("/badlink", (req, res) => {
+
+    res.sendFile(__dirname + "/unable.html");
+});
+
+app.listen(80, () => { 
+
+    console.clear();
+    console.log("Listening on port 80");
+});
+
+// HELPER FUNCTIONS
+
 async function getVideoFileName(req, res) {
 
     try {
+
         const allFiles = await getFiles(); // array of files with extensions (full names)
         // returns full name of the first file which starts with requested id or undefined
         return allFiles.find(f => f.startsWith(/v=(.*)/.exec(req.body.link)[1])); // first wich starts with id
     } 
     catch (err) {
+
         logger(err);
         return undefined;
     }
@@ -116,10 +126,13 @@ async function renderCaptchaPage(res) {
 async function downloadFile(req) {
 
     try {
+
         childProcess.execSync(`ytdl --id ${req.body.link}`, async (err, stdout, stderr) => 
             { await logger(err, stdout, stderr); });
         return true;
-    } catch (err) { 
+    } 
+    catch (err) { 
+
         logger(err); 
         return false; 
     }

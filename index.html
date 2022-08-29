@@ -17,6 +17,7 @@
         height: 40px;
       }
       #btn {
+        margin-top: .5rem;
         width: 100px;
         border-radius: 6px;
         margin-bottom: 20px;
@@ -44,9 +45,9 @@
         align-items: center;
       }
       #txt {
-        color: white;
-        animation:blink 2.4s infinite;
-        font-size: 20px;
+        color: darkgray;
+        animation: blink 2.4s infinite;
+        font-size: large;
         visibility: hidden;
       }
       @keyframes ld {
@@ -62,16 +63,18 @@
   </head>
 
   <body>
-    <br>
+    <br><br>
     <form id="form" action="/" method="POST" autocomplete="off">
       <div class="center">
         <div class="form-group">
-          <input type="text" id="link" name="link" class="form-control" id="link" required placeholder="         Paste your link here">
+          <input type="text" id="link" name="link" class="form-control" id="link" required placeholder="                    Paste your link here">
         </div>
       </div>
+      <br>
       <div class="center">
         <button id="btn" type="submit" class="btn btn-primary">Submit</button>
       </div>
+      <br>
       <div class="center">
         <div class="g-recaptcha" data-sitekey="6Lc20oocAAAAAEhRctX5xbLdF-7I5Hhjw1EEtPSu"></div>
       </div>
@@ -87,21 +90,26 @@
   </body>
     
   <script>
-    const btn = document.getElementById('btn');
-    const link = document.getElementById('link');
-    const loader = document.getElementById('ld');
-    const txt = document.getElementById('txt');
-    const form = document.getElementById('form');
+    const btn = document.getElementById("btn");
+    const txt = document.getElementById("txt");
+    const form = document.getElementById("form");
+    const link = document.getElementById("link");
+    const loader = document.getElementById("ld");
     
     link.focus();
-    btn.addEventListener('click', () => { if (link.value) { 
+    btn.addEventListener("click", proceedClick);
+    btn.addEventListener("mouseover", () => btn.style.background="#338acc");
+    btn.addEventListener("mouseover", () => btn.style.background="#337ab7");
+    
+    function proceedClick() {
+
+      if (link.value) { 
 
         txt.style.visibility = "visible";
         form.style.visibility = "hidden";
         loader.style.visibility = "visible"; 
       }
-    });
-    btn.addEventListener('mouseover', () => btn.style.background='#338acc');
-    btn.addEventListener('mouseout', () => btn.style.background='#337ab7');
+    }
+
   </script>
 </html>
