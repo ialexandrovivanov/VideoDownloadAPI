@@ -24,7 +24,7 @@ app.post("/", async (req, res) => {
     const videoFileName = await getVideoFileName(req);          
     if (videoFileName) renderVideoPage(res, videoFileName); 
     else {                                                  
-        const success =  await downloadFile(req); 
+        const success = await downloadFile(req); 
         if(success) {
             const videoFileName = await getVideoFileName(req); 
             if (videoFileName) renderVideoPage(res, videoFileName);        
@@ -57,7 +57,11 @@ async function getVideoFileName(req, res) {
     try {
 
         const allFiles = await getFiles();
-        const file = allFiles.find(f => f.startsWith(/v=(.*)/.exec(req.body.link)[1]));
+        var file = allFiles.find(f => f.startsWith(/v=(.*)/.exec(req.body.link)[1]));
+        file = file ? file : "";
+
+        if (file.endsWith(".part")) return undefined;
+
         return file;
     } 
     catch (err) {
@@ -100,7 +104,7 @@ async function renderVideoPage(res, videoFileName) {
     res.end();
 }
 
-function renderUnablePage(res) {
+async function renderUnablePage(res) {
 
     res.sendFile(__dirname + "/unable.html");
 }
@@ -115,9 +119,19 @@ async function renderCaptchaPage(res) {
     res.sendFile(__dirname + "/captcha.html");
 }
 
-async function downloadFile(req) {
+async function deletePartFile(link) {
 
-    await updateItdl();
+    const extensions = ["mkv", "mp4", "webm"];
+    const filename = await getFilenameFromLink(link);
+
+    extensions.forEach(e => async () => {
+
+        try { fs.unlinkSync(filename + e + ".part"); } 
+        catch (err) { await logger(err); }
+    }) 
+}
+
+async function downloadFile(req) {
 
     try {
 
@@ -129,27 +143,17 @@ async function downloadFile(req) {
     catch (err) { 
 
         await logger(err); 
+        await deletePartFile(req.body.link);
         return false; 
     }
+}
+
+async function getFilenameFromLink(link) {
+
+    return link.substring(32, link.length);
 }
 
 async function logger(err, stdout, stderr) {
     
     console.log(err, stdout, stderr);
-}
-
-async function updateItdl() {
-
-    try {
-
-        childProcess.execSync("ytdl --update", async (err, stdout, stderr) => { 
-            await logger(err, stdout, stderr); 
-        });
-        return true;
-    } 
-    catch (err) { 
-
-        await logger(err); 
-        return false; 
-    }    
 }
