@@ -12,7 +12,7 @@
       body { background: black; }
       #link { 
         background: rgb(255, 255, 252);
-        width: 305px; 
+        width: 40rem; 
         border-radius: 6px;
         height: 40px;
       }
@@ -67,7 +67,7 @@
     <form id="form" action="/" method="POST" autocomplete="off">
       <div class="center">
         <div class="form-group">
-          <input type="text" id="link" name="link" class="form-control" id="link" required placeholder="                    Paste your link here">
+          <input type="text" id="link" name="link" class="form-control" id="link" required placeholder=" Paste here your favorite youtube link to download the video">
         </div>
       </div>
       <br>
@@ -81,7 +81,7 @@
     </form>
     <br>
     <div class="center">
-      <p id="txt" style="visibility: hidden;">Proccessing your file...</p>
+      <p id="txt" style="visibility: hidden;">Please be patient! Some times it takes up to 10 minutes.</p>
     </div>
     <br>
     <div class="center">
@@ -90,6 +90,7 @@
   </body>
     
   <script>
+    
     const btn = document.getElementById("btn");
     const txt = document.getElementById("txt");
     const form = document.getElementById("form");
